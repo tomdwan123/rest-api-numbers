@@ -1,0 +1,11 @@
+{
+  "id": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985",
+  "phone_number": "+12025559523",
+  "country": "US",
+  "type": "TOLL_FREE",
+  "classification": "GOLD",
+  "capabilities": [
+    "SMS"
+  ],
+  "status": "PENDING"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985",
+  "providerId": "b0747959-311b-41d4-8eba-989bb99e0325",
+  "phoneNumber": "+12025559523",
+  "country": "US",
+  "type": "TOLL_FREE",
+  "classification": "GOLD",
+  "created": "2019-06-21T04:04:31.707Z",
+  "updated": "2019-06-21T04:04:35.443Z",
+  "availableAfter": null,
+  "capabilities": [
+    "SMS"
+  ],
+  "assignedTo": {
+    "id": "be3cb602-7c00-4c87-ae4b-b8defc04f179",
+    "numberId": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985",
+    "vendorId": "vendorIdTest0",
+    "accountId": "accountIdTest0",
+    "created": "2019-06-21T04:04:35.443Z"
+  },
+  "status": "PENDING"
+}

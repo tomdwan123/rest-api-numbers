@@ -1,0 +1,48 @@
+{
+    "data": [
+        {
+            "number": {
+                "id": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985",
+                "phone_number": "+614000000000",
+                "country": "AU",
+                "type": "MOBILE",
+                "classification": "GOLD",
+                "capabilities": [
+                    "SMS"
+                ]
+            },
+            "assignment": {
+                "metadata": {
+                    "key1": "value1"
+                },
+                "id": "be3cb602-7c00-4c87-ae4b-b8defc04f179",
+                "number_id": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985",
+                "label": "LabelTest0"
+            }
+        },
+        {
+            "number": {
+                "id": "be3cb602-7c00-4c87-ae4b-b8defc04f179",
+                "phone_number": "+614111111111",
+                "country": "AU",
+                "type": "MOBILE",
+                "classification": "SILVER",
+                "capabilities": [
+                    "SMS",
+                    "MMS"
+                ]
+            },
+            "assignment": {
+                "metadata": {
+                    "key1": "value1"
+                },
+                "id": "b0747959-311b-41d4-8eba-989bb99e0325",
+                "number_id": "be3cb602-7c00-4c87-ae4b-b8defc04f179"
+            }
+        }
+    ],
+    "pagination": {
+        "page_size": 50,
+        "next_token": "b9ee3fe8-2c20-47b1-96e9-c5d12d7ed985"
+    }
+}

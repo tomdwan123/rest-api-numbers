@@ -1,0 +1,356 @@
+swagger: '2.0'
+info:
+  description: Api Documentation
+  version: '1.0'
+  title: 'Numbers Service Public API Spec'
+  termsOfService: 'urn:tos'
+  contact: {}
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0'
+host: 'example'
+basePath: /
+tags:
+  - name: numbers-controller
+    description: Numbers Controller
+paths:
+  /v1/messaging/numbers/dedicated:
+    get:
+      tags:
+        - numbers-controller
+      summary: getNumbers
+      operationId: getNumbersUsingGET
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: country
+          in: query
+          description: country
+          required: false
+          type: string
+        - name: matching
+          in: query
+          description: matching
+          required: false
+          type: string
+        - name: page_size
+          in: query
+          description: page_size
+          required: false
+          type: integer
+          format: int32
+        - name: service_types
+          in: query
+          description: service_types
+          required: false
+          type: array
+          items:
+            type: string
+            enum:
+              - SMS
+              - TTS
+              - MMS
+              - CALL
+          collectionFormat: multi
+        - name: token
+          in: query
+          description: token
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/NumbersListResponse'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/messaging/numbers/dedicated/assignments':
+    get:
+      tags:
+        - assigned-numbers-controller
+      summary: getAssignedNumbers
+      operationId: getAssignmentsUsingGET
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: page_size
+          in: query
+          description: page_size
+          required: false
+          type: integer
+          format: int32
+        - name: token
+          in: query
+          description: token
+          required: false
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/AssignedNumberListResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+  '/v1/messaging/numbers/dedicated/{numberId}':
+    get:
+      tags:
+        - numbers-controller
+      summary: getNumber
+      operationId: getNumberUsingGET
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: numberId
+          in: path
+          description: numberId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Number'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+  '/v1/messaging/numbers/dedicated/{numberId}/assignment':
+    get:
+      tags:
+        - numbers-controller
+      summary: getAssignment
+      operationId: getAssignmentUsingGET
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: numberId
+          in: path
+          description: numberId
+          required: true
+          type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Assignment'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+    post:
+      tags:
+        - numbers-controller
+      summary: createAssignment
+      operationId: createAssignmentUsingPOST
+      consumes:
+        - application/json
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: numberId
+          in: path
+          description: numberId
+          required: true
+          type: string
+        - in: body
+          name: createAssignment
+          description: createAssignment
+          required: true
+          schema:
+            $ref: '#/definitions/CreateAssignment'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/Assignment'
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+    delete:
+      tags:
+        - numbers-controller
+      summary: deleteAssignment
+      operationId: deleteAssignmentUsingDELETE
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: numberId
+          in: path
+          description: numberId
+          required: true
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+    patch:
+      tags:
+        - numbers-controller
+      summary: updateAssignment
+      operationId: updateAssignmentUsingPATCH
+      consumes:
+        - application/json
+      produces:
+        - application/json;charset=UTF-8
+      parameters:
+        - name: numberId
+          in: path
+          description: numberId
+          required: true
+          type: string
+        - in: body
+          name: updateAssignment
+          description: updateAssignment
+          required: true
+          schema:
+            $ref: '#/definitions/UpdateAssignment'
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Assignment'
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+definitions:
+  AssignedNumber:
+    type: object
+    properties:
+      assignment:
+        "$ref": "#/definitions/Assignment"
+      number:
+        "$ref": "#/definitions/Number"
+    title: AssignedNumber
+  AssignedNumberListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          "$ref": "#/definitions/AssignedNumber"
+      pagination:
+        "$ref": "#/definitions/Pagination"
+    title: AssignedNumberListResponse
+  Assignment:
+    type: object
+    properties:
+      id:
+        type: string
+      metadata:
+        type: object
+        additionalProperties:
+          type: string
+      number_id:
+        type: string
+      label:
+        type: string
+    title: Assignment
+  CreateAssignment:
+    type: object
+    properties:
+      metadata:
+        type: object
+        maxItems: 5
+        additionalProperties:
+          type: string
+      label:
+        type: string
+        maxLength: 100
+        example: 'My awesome number assigned to my awesome account'
+    title: CreateAssignment
+  'Map«string,string»':
+    type: object
+    title: 'Map«string,string»'
+    additionalProperties:
+      type: string
+  Number:
+    type: object
+    properties:
+      available_after:
+        type: string
+        format: date-time
+      capabilities:
+        type: array
+        items:
+          type: string
+          enum:
+            - SMS
+            - TTS
+            - MMS
+            - CALL
+      classification:
+        type: string
+        enum:
+          - BRONZE
+          - SILVER
+          - GOLD
+      country:
+        type: string
+      id:
+        type: string
+      phone_number:
+        type: string
+      type:
+        type: string
+        enum:
+          - MOBILE
+          - LANDLINE
+          - TOLL_FREE
+          - SHORT_CODE
+    title: Number
+  NumbersListResponse:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Number'
+      pagination:
+        $ref: '#/definitions/Pagination'
+    title: NumbersListResponse
+  Pagination:
+    type: object
+    properties:
+      page_size:
+        type: integer
+        format: int32
+      next_token:
+        type: string
+    title: Pagination
+  UpdateAssignment:
+    type: object
+    properties:
+      metadata:
+        maxItems: 5
+        $ref: '#/definitions/ValueWithNull«Map«string,string»»'
+      label:
+        type: string
+        maxLength: 100
+    title: UpdateAssignment
+  'ValueWithNull«Map«string,string»»':
+    type: object
+    properties:
+      explicitNull:
+        type: boolean
+    title: 'ValueWithNull«Map«string,string»»'

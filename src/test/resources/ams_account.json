@@ -1,0 +1,38 @@
+{
+  "vendorAccountId": {
+    "vendorId": "MessageMedia",
+    "accountId": "FunGuys007"
+  },
+  "parentAccount": "MessageUPtyLt695",
+  "operatingCountry": "AU",
+  "timezone": "Australia/Melbourne",
+  "status": "ACTIVE",
+  "billingType": "POSTPAID",
+  "label": "FunGuys",
+  "providerWeights": [
+    {
+      "type": "SOURCE_ADDRESS",
+      "presence": "WEIGHTED",
+      "value": "+61412345888",
+      "addressType": "INTERNATIONAL"
+    },
+    {
+      "type": "SOURCE_ADDRESS",
+      "presence": "WEIGHTED",
+      "value": "+61412345444",
+      "addressType": "INTERNATIONAL"
+    },
+    {
+      "type": "SOURCE_ADDRESS",
+      "presence": "WEIGHTED",
+      "value": "+61412345777",
+      "addressType": "INTERNATIONAL"
+    },
+    {
+      "type": "DIFFERENT_TYPE",
+      "presence": "FORBIDDEN",
+      "value": "+61412345666",
+      "addressType": "INTERNATIONAL"
+    }
+  ]
+}
